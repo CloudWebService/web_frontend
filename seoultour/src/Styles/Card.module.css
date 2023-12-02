@@ -1,5 +1,16 @@
 .mapContainer {
-  text-align: center;
-  width: "90%";
-  height: "360px";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 360px;
+  margin: 0 auto; /* 가로 중앙 정렬을 위해 추가 */
+}
+.restaurantContainer {
+  /* display: flex;
+  justify-content: center; */
+  /* align-items: center; */
+  width: 90%;
+
+  margin: 20px auto; /* 가로 중앙 정렬을 위해 추가 */
 }
