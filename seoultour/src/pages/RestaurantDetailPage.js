@@ -66,13 +66,14 @@ function RestaurantDetailPage() {
           position={{ lat: restaurantData.lat, lng: restaurantData.lon }}
         ></MapMarker>
       </Map>
-      <Typography variant="h5" component="div">
+      {/* <Typography variant="h5" component="div">
         리뷰
-      </Typography>
-      <Box sx={{ "& > :not(style)": { m: 1 } }}>
+      </Typography> */}
+      <Box sx={{ ml: 3.5, mt: 3.0 }}>
         <TextField
+          className={styles.restaurantContainer}
           id="input-with-icon-textfield"
-          label="TextField"
+          label="review"
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
