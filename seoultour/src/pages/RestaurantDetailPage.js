@@ -12,10 +12,12 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import SendIcon from "@mui/icons-material/Send";
+import Comments from "../components/Comments";
 function RestaurantDetailPage() {
   const [restaurantData, setRestaurantData] = useState();
-
-  const res = {
+  const [reviewList, setReviewList] = useState([]);
+  const restaurant_res = {
     _id: "mongodb 고유 object_id",
     name: "내가 찜한 닭",
     lat: 37.5518,
@@ -28,6 +30,20 @@ function RestaurantDetailPage() {
     time: "09:30~22:00",
     review: "100회",
   };
+  const review_res = [
+    {
+      _oid: "review_id_1",
+      restaurant_id: "restaurant_id_123",
+      user_id: "user_id_456",
+      comment: "맛있어요. 가족들과 식사하기 좋아요",
+    },
+    {
+      _oid: "review_id_2",
+      restaurant_id: "restaurant_id_123",
+      user_id: "user_id_789",
+      comment: "잘먹었습니다.",
+    },
+  ];
   // {
   // _id: "mongodb 고유 object_id",
   // name: "왕가탕후루",
@@ -43,13 +59,14 @@ function RestaurantDetailPage() {
   // },
 
   useEffect(() => {
-    setRestaurantData(res);
+    setRestaurantData(restaurant_res);
+    setReviewList(review_res);
   }, []);
   if (!restaurantData) {
     return <div>Loading...</div>;
   }
 
-  return restaurantData ? (
+  return restaurantData && reviewList ? (
     <div>
       <Card variant="outlined">
         <CardContents data={restaurantData}></CardContents>
@@ -69,7 +86,7 @@ function RestaurantDetailPage() {
       {/* <Typography variant="h5" component="div">
         리뷰
       </Typography> */}
-      <Box sx={{ ml: 3.5, mt: 3.0 }}>
+      <Box sx={{ position: "relative", ml: 3.5, mt: 3.0 }}>
         <TextField
           className={styles.restaurantContainer}
           id="input-with-icon-textfield"
@@ -83,7 +100,13 @@ function RestaurantDetailPage() {
           }}
           variant="standard"
         />
+        <SendIcon sx={{ position: "absolute", bottom: "10px", right: "5px" }} />
       </Box>
+      <div>
+        {reviewList.map((review) => (
+          <Comments key={review.user_id} data={review} />
+        ))}
+      </div>
     </div>
   ) : (
     <div>Loading...</div>
