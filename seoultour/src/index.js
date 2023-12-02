@@ -8,7 +8,10 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AppBar />
-    <Router />
+    <div id="appContents">
+      <Router />
+    </div>
+
     <BottomBar />
   </React.StrictMode>
 );

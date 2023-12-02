@@ -21,11 +21,6 @@ function RestaurantCard(data) {
           <Typography sx={{ display: "inline" }} variant="h5" component="div">
             {content[0].name}
           </Typography>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-          </div>
         </div>
         {content[0].menu ? (
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
