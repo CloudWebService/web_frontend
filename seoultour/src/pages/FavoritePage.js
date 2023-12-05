@@ -32,6 +32,7 @@ function FavoritePage() {
 
   return data ? (
     <div>
+      <h2>관심있는 행사</h2>
       <Card variant="outlined">
         <CardContents data={data} favoriteState={true}></CardContents>
       </Card>

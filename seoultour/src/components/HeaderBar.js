@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 export default function HeaderBar() {
   const navigate = useNavigate();
   const handleBackClick = () => {
-    // Navigate to the previous screen
     navigate(-1);
   };
   return (
