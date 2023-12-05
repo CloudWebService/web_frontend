@@ -10,9 +10,39 @@ import { useState, useEffect } from "react";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
-function EventCard(data) {
+function EventCard(data, favoriteState) {
   const contents = Array.isArray(data) ? data : Object.values(data);
-  console.log(contents[0]);
+  const [id, setId] = useState("");
+  const [isFavorite, setIsFavorite] = useState(false);
+  const fpPromise = import("https://openfpcdn.io/fingerprintjs/v4").then(
+    (FingerprintJS) => FingerprintJS.load()
+  );
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
+  useEffect(() => {
+    console.log("favoriteState=", Boolean(favoriteState));
+    setIsFavorite(Boolean(favoriteState));
+    fpPromise
+      .then((fp) => fp.get())
+      .then(
+        (
+          result //console.log(typeof result.visitorId)
+        ) => setId(result.visitorId)
+      );
+  }, []);
+  const handleFavorite = async () => {
+    setIsFavorite(!isFavorite);
+    // await axios
+    //   .post(BASE_URL + "/bookmarks", {
+    //     userId: id,
+    //     eventId: contents[0]._oid,
+    //   })
+    //   .then((res) => {
+    //     console.log("즐겨찾기 등록 post완료 :", res);
+    //   })
+    //   .catch((err) => {
+    //     alert("즐겨찾기 등록 post 실패: ", err);
+    //   });
+  };
   if (!data) {
     return <div>Loading...</div>;
   }
@@ -26,7 +56,10 @@ function EventCard(data) {
           </Typography>
           <div style={{ display: "flex", alignItems: "center" }}>
             <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
+              <FavoriteIcon
+                onClick={handleFavorite}
+                color={isFavorite ? "error" : "inherit"}
+              />
             </IconButton>
           </div>
         </div>

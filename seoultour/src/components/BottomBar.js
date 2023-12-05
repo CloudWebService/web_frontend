@@ -9,7 +9,7 @@ import StadiumIcon from "@mui/icons-material/Stadium";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import GroupsIcon from "@mui/icons-material/Groups";
 
-export default function SimpleBottomNavigation() {
+export default function BottomBar() {
   const [value, setValue] = React.useState(0);
 
   return (

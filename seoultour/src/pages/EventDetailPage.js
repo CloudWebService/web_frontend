@@ -3,13 +3,12 @@ import styles from "../Styles/Card.module.css";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import { useState, useEffect } from "react";
-import IconButton from "@mui/material/IconButton";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import CardContents from "../components/EventCard";
 function EventDetailPage() {
   const [data, setData] = useState();
   const response = {
+    _oid: "event object id1",
     title: "건국 예디대 졸업전시회",
     category: "미술",
     district: "광진구",
@@ -34,7 +33,7 @@ function EventDetailPage() {
   return data ? (
     <div>
       <Card variant="outlined">
-        <CardContents data={data}></CardContents>
+        <CardContents data={data} favoriteState={false}></CardContents>
       </Card>
       <Typography variant="h5" component="div">
         Info
