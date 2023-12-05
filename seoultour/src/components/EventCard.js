@@ -9,7 +9,8 @@ import Typography from "@mui/material/Typography";
 import { useState, useEffect } from "react";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
+import axios from "axios";
+
 function EventCard(data, favoriteState) {
   const contents = Array.isArray(data) ? data : Object.values(data);
   const [id, setId] = useState("");
@@ -20,6 +21,7 @@ function EventCard(data, favoriteState) {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   useEffect(() => {
     console.log("favoriteState=", Boolean(favoriteState));
+    console.log("eventcard???", data);
     setIsFavorite(Boolean(favoriteState));
     fpPromise
       .then((fp) => fp.get())
@@ -30,19 +32,33 @@ function EventCard(data, favoriteState) {
       );
   }, []);
   const handleFavorite = async () => {
-    setIsFavorite(!isFavorite);
-    // await axios
-    //   .post(BASE_URL + "/bookmarks", {
-    //     userId: id,
-    //     eventId: contents[0]._oid,
-    //   })
-    //   .then((res) => {
-    //     console.log("즐겨찾기 등록 post완료 :", res);
-    //   })
-    //   .catch((err) => {
-    //     alert("즐겨찾기 등록 post 실패: ", err);
-    //   });
+    if (!isFavorite) {
+      setIsFavorite(!isFavorite);
+      await axios
+        .post(`${BASE_URL}/api/my-events`, {
+          userId: id,
+          eventId: contents[0]._oid,
+        })
+        .then((res) => {
+          console.log("즐겨찾기 등록 post완료 :", res);
+        })
+        .catch((err) => {
+          alert("즐겨찾기 등록 post 실패: ", err);
+        });
+    } else {
+      setIsFavorite(!isFavorite);
+      console.log(`${BASE_URL}/api/user/${id}/events/${contents[0]._oid}`);
+      // await axios
+      //   .delete(BASE_URL + `/api/user/${id}/events/${contents[0]._oid}`)
+      //   .then((res) => {
+      //     console.log("즐겨찾기 delete 완료 :", res);
+      //   })
+      //   .catch((err) => {
+      //     alert("즐겨찾기 delete 실패: ", err);
+      //   });
+    }
   };
+
   if (!data) {
     return <div>Loading...</div>;
   }
