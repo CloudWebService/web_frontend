@@ -7,8 +7,11 @@ import BottomBar from "./components/BottomBar";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <AppBar />
+    {/* <AppBar />
     <Router />
+    <BottomBar /> */}
+    <AppBar />
+    <App />
     <BottomBar />
   </React.StrictMode>
 );
