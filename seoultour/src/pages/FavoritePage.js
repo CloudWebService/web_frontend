@@ -60,18 +60,19 @@ function FavoritePage() {
     (FingerprintJS) => FingerprintJS.load()
   );
   const setBookmarkList = async () => {
+    console.log(BASE_URL + `/api/bookmarks?useId=${id}`);
     await axios
-      .get(
-        "https://4ece099f-93aa-44bb-a61a-5b0fa04f47ac.mock.pstmn.io" +
-          `/api/bookmarks/1`
-      )
-      // .get(BASE_URL+`/api/bookmarks/${id}`)
+      // .get(
+      //   "https://jfaacdyqeb.execute-api.us-east-2.amazonaws.com/api/bookmarks?userId=isoo"
+      // )
+      .get(BASE_URL + `/api/bookmarks?useId=${id}`)
       .then((res) => {
         console.log("즐겨찾기 리스트 get완료 :", res.data);
         setData(res.data);
       })
       .catch((err) => {
-        alert("즐겨찾기 리스트 get 실패: ", err);
+        // console.log(BASE_URL + `/api/bookmarks?useId=${id}`);
+        alert("즐겨찾기 리스트 불러오기 실패: ", err);
       });
     // setData(response);
   };
@@ -80,6 +81,7 @@ function FavoritePage() {
       .then((fp) => fp.get())
       .then((result) => {
         setId(result.visitorId);
+        console.log("id?", id, result.visitorId);
         setBookmarkList();
       });
   }, []);

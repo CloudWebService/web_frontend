@@ -35,10 +35,9 @@ function EventCard(data, favoriteState, onFavoriteChange) {
     if (!isFavorite) {
       setIsFavorite(!isFavorite);
       await axios
-        .post(`${BASE_URL}/api/my-events`, {
-          userId: id,
-          eventId: contents[0]._oid,
-        })
+        .post(
+          `${BASE_URL}/api/bookmarks?userId=${id}&eventId=${contents[0]._oid}`
+        )
         .then((res) => {
           console.log("즐겨찾기 등록 post완료 :", res);
         })
@@ -48,15 +47,19 @@ function EventCard(data, favoriteState, onFavoriteChange) {
     } else {
       onFavoriteChange && onFavoriteChange();
       setIsFavorite(!isFavorite);
-      console.log(`${BASE_URL}/api/user?=${id}&events=${contents[0]._oid}`);
-      // await axios
-      //   .delete(`${BASE_URL}/api/user-id?=${id}&events=${contents[0]._oid}`)
-      //   .then((res) => {
-      //     console.log("즐겨찾기 delete 완료 :", res);
-      //   })
-      //   .catch((err) => {
-      //     alert("즐겨찾기 delete 실패: ", err);
-      //   });
+      console.log(
+        `${BASE_URL}/api/bookmarks?userId=${id}&eventId=${contents[0]._oid}`
+      );
+      await axios
+        .delete(
+          `${BASE_URL}/api/bookmarks?userId=${id}&eventId=${contents[0]._oid}`
+        )
+        .then((res) => {
+          console.log("즐겨찾기 delete 완료 :", res);
+        })
+        .catch((err) => {
+          alert("즐겨찾기 delete 실패: ", err);
+        });
     }
   };
 
