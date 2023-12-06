@@ -12,10 +12,21 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import SendIcon from "@mui/icons-material/Send";
 import Comments from "../components/Comments";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 function RestaurantDetailPage() {
   const [restaurantData, setRestaurantData] = useState();
   const [reviewList, setReviewList] = useState([]);
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
+  const location = useLocation();
+
+  const [id, setId] = useState("");
+  const data = location.state
+    ? location.state.eventData
+    : console.log("eventData null");
+  const fpPromise = import("https://openfpcdn.io/fingerprintjs/v4").then(
+    (FingerprintJS) => FingerprintJS.load()
+  );
   const restaurant_res = {
     _id: "mongodb 고유 object_id",
     name: "내가 찜한 닭",
@@ -72,8 +83,15 @@ function RestaurantDetailPage() {
   };
 
   useEffect(() => {
-    setRestaurantData(restaurant_res);
+    // setRestaurantData(restaurant_res);
     setReview();
+    fpPromise
+      .then((fp) => fp.get())
+      .then(
+        (
+          result //console.log(typeof result.visitorId)
+        ) => setId(result.visitorId)
+      );
   }, []);
   if (!restaurantData) {
     return <div>Loading...</div>;
