@@ -72,4 +72,4 @@ const EventPage = () => {
     );
 }
 
-export default EventPage;
+export default EventPage; 
