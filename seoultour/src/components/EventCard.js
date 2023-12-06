@@ -47,9 +47,9 @@ function EventCard(data, favoriteState) {
         });
     } else {
       setIsFavorite(!isFavorite);
-      console.log(`${BASE_URL}/api/user/${id}/events/${contents[0]._oid}`);
+      console.log(`${BASE_URL}/api/user?=${id}&events=${contents[0]._oid}`);
       // await axios
-      //   .delete(BASE_URL + `/api/user/${id}/events/${contents[0]._oid}`)
+      //   .delete(`${BASE_URL}/api/user-id?=${id}&events=${contents[0]._oid}`)
       //   .then((res) => {
       //     console.log("즐겨찾기 delete 완료 :", res);
       //   })
