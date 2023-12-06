@@ -65,6 +65,7 @@ function FavoritePage() {
         "https://4ece099f-93aa-44bb-a61a-5b0fa04f47ac.mock.pstmn.io" +
           `/api/bookmarks/1`
       )
+      // .get(BASE_URL+`/api/bookmarks/${id}`)
       .then((res) => {
         console.log("즐겨찾기 리스트 get완료 :", res.data);
         setData(res.data);
@@ -82,6 +83,9 @@ function FavoritePage() {
         setBookmarkList();
       });
   }, []);
+  const onFavoriteChange = () => {
+    setBookmarkList(); // 상태가 변경되면 서버에서 데이터 다시 가져오기
+  };
   if (!data) {
     return <div>Loading...</div>;
   }
@@ -92,7 +96,11 @@ function FavoritePage() {
       {data.map((cardData) => (
         <div className={styles.eventContainer}>
           <Card variant="outlined" key={cardData._oid}>
-            <CardContents data={cardData} favoriteState={true}></CardContents>
+            <CardContents
+              data={cardData}
+              favoriteState={true}
+              onFavoriteChange={onFavoriteChange}
+            ></CardContents>
           </Card>
         </div>
       ))}

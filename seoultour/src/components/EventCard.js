@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import axios from "axios";
 
-function EventCard(data, favoriteState) {
+function EventCard(data, favoriteState, onFavoriteChange) {
   const contents = Array.isArray(data) ? data : Object.values(data);
   const [id, setId] = useState("");
   const [isFavorite, setIsFavorite] = useState(false);
@@ -46,6 +46,7 @@ function EventCard(data, favoriteState) {
           alert("즐겨찾기 등록 post 실패: ", err);
         });
     } else {
+      onFavoriteChange && onFavoriteChange();
       setIsFavorite(!isFavorite);
       console.log(`${BASE_URL}/api/user?=${id}&events=${contents[0]._oid}`);
       // await axios
