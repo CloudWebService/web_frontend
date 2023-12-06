@@ -16,13 +16,13 @@ export default function BottomBar() {
     navigate("/bookmark");
   };
   const moveEventListPage = () => {
-    navigate("/");
+    navigate("/event");
   };
   const moveRestaurantListPage = () => {
-    navigate("/");
+    navigate("/restaurant");
   };
   const moveCongestionPage = () => {
-    navigate("/");
+    navigate("/congestion");
   };
   return (
     <Box position="fixed" bottom="0px" left="0" width="100%" zIndex={99}>

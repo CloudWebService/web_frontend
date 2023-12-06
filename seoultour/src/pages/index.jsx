@@ -6,42 +6,93 @@ import EventDetailPage from "./EventDetailPage";
 import RestaurantPage from "./RestaurantPage/RestaurantPage";
 import RestaurantDetailPage from "./RestaurantDetailPage";
 import SeoulCongestionPage from "./SeoulCongestionPage/SeoulCongestionPage";
+// Router.js
+
+import FavoritePage from "./FavoritePage";
+import HeaderBar from "../components/HeaderBar";
+import BottomBar from "../components/BottomBar";
 
 const Router = () => {
-    const router = createBrowserRouter([
-      {
-        path: "/",
-        children: [
-        //   {
-        //     index: true,
-        //     element: <Home />,
-        //   },
-          {
-            path: "/event",
-            element: <EventPage />,
-          },
-          {
-            path: "/event/:eventId",  // 나경 확인 필요
-            element: <EventDetailPage />,
-          },
-          {
-            path: "/restaurant",
-            element: <RestaurantPage />,
-          },
-          {
-            path: "/restaurant/:restaurantId",  // 나경 확인 필요
-            element: <RestaurantDetailPage />,
-          },
-          {
-            path: "/congestion",
-            element: <SeoulCongestionPage />,
-          },
-        ],
-      },
-    ]);
-  
-    return <RouterProvider router={router} />;
-  };
-  
-  export default Router;
-  
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      children: [
+        {
+          index: true,
+          element: (
+            <>
+              {" "}
+              <HeaderBar />
+              <EventPage />
+              <BottomBar />
+            </>
+          ),
+        },
+        {
+          path: "/event",
+          element: (
+            <>
+              <HeaderBar />
+              <EventPage />
+              <BottomBar />
+            </>
+          ),
+        },
+        {
+          path: "/event/:eventId", // 나경 확인 필요
+          element: (
+            <>
+              <HeaderBar />
+              <EventDetailPage />
+              <BottomBar />,
+            </>
+          ),
+        },
+        {
+          path: "/restaurant",
+          element: (
+            <>
+              <HeaderBar />
+              <RestaurantPage />
+              <BottomBar />
+            </>
+          ),
+        },
+        {
+          path: "/restaurant/:restaurantId", // 나경 확인 필요
+          element: (
+            <>
+              <HeaderBar />
+              <RestaurantDetailPage />
+              <BottomBar />
+            </>
+          ),
+        },
+        {
+          path: "/congestion",
+          element: (
+            <>
+              <HeaderBar />
+              <SeoulCongestionPage />
+              <BottomBar />
+            </>
+          ),
+        },
+        {
+          path: "/bookmark",
+          element: (
+            <>
+              <HeaderBar />
+              <FavoritePage />
+              <BottomBar />
+            </>
+          ),
+        },
+      ],
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
+};
+
+export default Router;
