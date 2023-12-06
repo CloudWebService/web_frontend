@@ -99,7 +99,7 @@ function EventDetailPage() {
       </Map>
       <div className="restaurantInfo">
         <Typography variant="h5" component="div">
-          근처맛집
+          근처맛집!
         </Typography>
         {res_res.map((data) => (
           <Card className={styles.restaurantContainer} sx={{ mb: 2.5 }}>
