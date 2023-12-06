@@ -25,7 +25,7 @@ export default function BottomBar() {
     navigate("/");
   };
   return (
-    <Box position="fixed" bottom="0px" left="0" width="100%">
+    <Box position="fixed" bottom="0px" left="0" width="100%" zIndex={99}>
       <BottomNavigation
         showLabels
         value={value}

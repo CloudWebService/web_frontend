@@ -11,6 +11,8 @@ import TextField from "@mui/material/TextField";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import SendIcon from "@mui/icons-material/Send";
 import Comments from "../components/Comments";
+import axios from "axios";
+
 function RestaurantDetailPage() {
   const [restaurantData, setRestaurantData] = useState();
   const [reviewList, setReviewList] = useState([]);
