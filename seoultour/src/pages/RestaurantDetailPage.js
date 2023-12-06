@@ -56,10 +56,24 @@ function RestaurantDetailPage() {
   // time: "09:30~23:00",
   // review: "120회",
   // },
+  const setReview = async () => {
+    await axios
+      .get(
+        BASE_URL +
+          `/api/restaurant/reviews?userId=${id}&restaurantId=${data._id}`
+      )
+      .then((res) => {
+        console.log("리뷰 get완료 :", res.data);
+        setReviewList(res.data);
+      })
+      .catch((err) => {
+        alert("리뷰 get 실패: ", err);
+      });
+  };
 
   useEffect(() => {
     setRestaurantData(restaurant_res);
-    setReviewList(review_res);
+    setReview();
   }, []);
   if (!restaurantData) {
     return <div>Loading...</div>;
@@ -76,10 +90,10 @@ function RestaurantDetailPage() {
 
       <Map
         className={styles.mapContainer}
-        center={{ lat: restaurantData.lat, lng: restaurantData.lon }}
+        center={{ lat: restaurantData.위도, lng: restaurantData.경도 }}
       >
         <MapMarker
-          position={{ lat: restaurantData.lat, lng: restaurantData.lon }}
+          position={{ lat: restaurantData.위도, lng: restaurantData.경도 }}
         ></MapMarker>
       </Map>
       {/* <Typography variant="h5" component="div">
@@ -102,8 +116,8 @@ function RestaurantDetailPage() {
         <SendIcon sx={{ position: "absolute", bottom: "10px", right: "5px" }} />
       </Box>
       <div>
-        {reviewList.map((review) => (
-          <Comments key={review.user_id} data={review} />
+        {reviewList.map((review, idx) => (
+          <Comments key={idx} data={review} />
         ))}
       </div>
     </div>
