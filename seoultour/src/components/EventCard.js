@@ -9,10 +9,56 @@ import Typography from "@mui/material/Typography";
 import { useState, useEffect } from "react";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
-function EventCard(data) {
+import axios from "axios";
+
+function EventCard(data, favoriteState) {
   const contents = Array.isArray(data) ? data : Object.values(data);
-  console.log(contents[0]);
+  const [id, setId] = useState("");
+  const [isFavorite, setIsFavorite] = useState(false);
+  const fpPromise = import("https://openfpcdn.io/fingerprintjs/v4").then(
+    (FingerprintJS) => FingerprintJS.load()
+  );
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
+  useEffect(() => {
+    console.log("favoriteState=", Boolean(favoriteState));
+    console.log("eventcard???", data);
+    setIsFavorite(Boolean(favoriteState));
+    fpPromise
+      .then((fp) => fp.get())
+      .then(
+        (
+          result //console.log(typeof result.visitorId)
+        ) => setId(result.visitorId)
+      );
+  }, []);
+  const handleFavorite = async () => {
+    if (!isFavorite) {
+      setIsFavorite(!isFavorite);
+      await axios
+        .post(`${BASE_URL}/api/my-events`, {
+          userId: id,
+          eventId: contents[0]._oid,
+        })
+        .then((res) => {
+          console.log("즐겨찾기 등록 post완료 :", res);
+        })
+        .catch((err) => {
+          alert("즐겨찾기 등록 post 실패: ", err);
+        });
+    } else {
+      setIsFavorite(!isFavorite);
+      console.log(`${BASE_URL}/api/user/${id}/events/${contents[0]._oid}`);
+      // await axios
+      //   .delete(BASE_URL + `/api/user/${id}/events/${contents[0]._oid}`)
+      //   .then((res) => {
+      //     console.log("즐겨찾기 delete 완료 :", res);
+      //   })
+      //   .catch((err) => {
+      //     alert("즐겨찾기 delete 실패: ", err);
+      //   });
+    }
+  };
+
   if (!data) {
     return <div>Loading...</div>;
   }
@@ -26,7 +72,10 @@ function EventCard(data) {
           </Typography>
           <div style={{ display: "flex", alignItems: "center" }}>
             <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
+              <FavoriteIcon
+                onClick={handleFavorite}
+                color={isFavorite ? "error" : "inherit"}
+              />
             </IconButton>
           </div>
         </div>
