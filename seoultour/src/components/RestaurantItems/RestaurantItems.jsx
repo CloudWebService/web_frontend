@@ -6,23 +6,29 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import { Typography } from '@mui/material';
 
-const RestaurantItems = ({ events }) => {
+const RestaurantItems = ({ restaurants }) => {
+
+  console.log(restaurants);
+  if (!restaurants || restaurants.length === 0) {
+    return <></>;
+  }
+  
   return (
     <>
       <nav aria-label="secondary mailbox folders">
         <List>
           <Divider />
-          {events.map((event, index) => (
+          {restaurants.map((res, index) => (
             <React.Fragment key={index}>
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemText 
-                    primary={event.name} 
+                    primary={res.상호명} 
                     secondary={
                       <React.Fragment>
                         <Typography sx={{ display: 'inline' }} component="span" variant="body2">
-                          {'리뷰: '}
-                          {event.review}
+                          {'대표메뉴: '}
+                          {res.대표메뉴}
                         </Typography>
                       </React.Fragment>
                     }

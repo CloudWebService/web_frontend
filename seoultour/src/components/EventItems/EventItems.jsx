@@ -6,7 +6,9 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+
 const EventItems = ({ events }) => {
+
   const navigate = useNavigate();
   const handleEventItem = (event) => {
     console.log(event);
@@ -14,6 +16,11 @@ const EventItems = ({ events }) => {
       state: { eventData: event },
     });
   };
+  
+  if (!events || events.length === 0) {
+    return <></>;
+  }
+
   return (
     <>
       <nav aria-label="secondary mailbox folders">
