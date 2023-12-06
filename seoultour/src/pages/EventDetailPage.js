@@ -11,6 +11,7 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 function EventDetailPage() {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const location = useLocation();
 
   const data = location.state
@@ -60,25 +61,10 @@ function EventDetailPage() {
       review: "50회",
     },
   ];
-  const setAroundRestaurant = async () => {
-    // await axios
-    //   .get(
-    //     "https://4ece099f-93aa-44bb-a61a-5b0fa04f47ac.mock.pstmn.io/api/around/restaurant"
-    //   )
-    //   .then((res) => {
-    //     console.log("즐겨찾기 리스트 get완료 :", res.data);
-    //     setData(res.data);
-    //   })
-    //   .catch((err) => {
-    //     alert("즐겨찾기 리스트 get 실패: ", err);
-    //   });
-    // setRestaruantData(res_res);
-    // console.log("sss", restaurant_res);
-  };
 
   const review = "100회";
   useEffect(() => {
-    setAroundRestaurant();
+    // setReview();
   }, []);
 
   if (!data || !data.lat || !data.lon) {
@@ -101,9 +87,9 @@ function EventDetailPage() {
 
       <Map
         className={styles.mapContainer}
-        center={{ lat: data.lat, lng: data.lon }}
+        center={{ lat: data.lat, lng: data.lng }}
       >
-        <MapMarker position={{ lat: data.lat, lng: data.lon }}></MapMarker>
+        <MapMarker position={{ lat: data.lat, lng: data.lng }}></MapMarker>
       </Map>
     </div>
   );

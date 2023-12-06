@@ -22,7 +22,7 @@ function RestaurantCard(data) {
             {content[0].name}
           </Typography>
         </div>
-        {content[0].menu ? (
+        {content[0].대표메뉴 ? (
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
             - 대표메뉴: {content[0].menu}
           </Typography>
@@ -30,13 +30,13 @@ function RestaurantCard(data) {
           <div></div>
         )}
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          - 주소: {content[0].addr}
+          - 주소: {content[0].신주소}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          - 운영 시간: {content[0].time}
+          - 운영 시간: {content[0].운영시간}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          - 전화 번호: {content[0].phone_num}
+          - 전화 번호: {content[0].전화번호}
         </Typography>
       </CardContent>
 
