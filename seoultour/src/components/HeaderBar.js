@@ -12,7 +12,14 @@ export default function HeaderBar() {
     navigate(-1);
   };
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box
+      position="fixed"
+      top="0px"
+      left="0"
+      width="100%"
+      zIndex={99}
+      sx={{ flexGrow: 1 }}
+    >
       <AppBar position="static">
         <Toolbar>
           <ArrowBackIcon onClick={handleBackClick} />

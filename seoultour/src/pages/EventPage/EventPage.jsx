@@ -24,11 +24,11 @@ const EventPage = () => {
 
     const handleStartDate = (startDate) => {
         setSelectedStartDate(startDate);
-    }
+    };
 
     const handleEndDate = (endDate) => {
         setSelectedEndDate(endDate);
-    }
+    };
 
     const handleSearch = async () => {
         console.log('Selected District: ', selectedDistrict);
@@ -55,21 +55,43 @@ const EventPage = () => {
                 <h2>행사 목록</h2>
             </div>
 
-            <AccordionMenu isEvent={true} selectedDistrict={selectedDistrict} selectedCategory={selectedCategory} onDistrictChange={handleDistrictChange} onCategoryChange={handleCategoryChange}/>
-            
-            <div style={{ paddingTop: "15px" }}>
-                <DatePick label={'시작 날짜'} selectedDate={selectedStartDate} onDateChange={handleStartDate} />
-            </div>
-            <div style={{ paddingTop: "5px" }}>
-                <DatePick label={'끝 날짜'} selectedDate={selectedEndDate} onDateChange={handleEndDate} />
-            </div>
+      <AccordionMenu
+        isEvent={true}
+        selectedDistrict={selectedDistrict}
+        selectedCategory={selectedCategory}
+        onDistrictChange={handleDistrictChange}
+        onCategoryChange={handleCategoryChange}
+      />
 
-            <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "20px"}}>
-                <Button variant="contained" onClick={handleSearch}>검색</Button>
-            </div>
-            <EventItems events={events} />
-        </>
-    );
-}
+      <div style={{ paddingTop: "15px" }}>
+        <DatePick
+          label={"시작 날짜"}
+          selectedDate={selectedStartDate}
+          onDateChange={handleStartDate}
+        />
+      </div>
+      <div style={{ paddingTop: "5px" }}>
+        <DatePick
+          label={"끝 날짜"}
+          selectedDate={selectedEndDate}
+          onDateChange={handleEndDate}
+        />
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginTop: "20px",
+        }}
+      >
+        <Button variant="contained" onClick={handleSearch}>
+          검색
+        </Button>
+      </div>
+      <EventItems events={response} />
+    </>
+  );
+};
 
 export default EventPage;

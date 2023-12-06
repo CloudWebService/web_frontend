@@ -39,7 +39,7 @@ const Router = () => {
           ),
         },
         {
-          path: "/event/:eventId", // 나경 확인 필요
+          path: "/event-detail", // 나경 확인 필요
           element: (
             <>
               <HeaderBar />
@@ -59,7 +59,7 @@ const Router = () => {
           ),
         },
         {
-          path: "/restaurant/:restaurantId", // 나경 확인 필요
+          path: "/restaurant-detail", // 나경 확인 필요
           element: (
             <>
               <HeaderBar />

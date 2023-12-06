@@ -6,25 +6,32 @@ import { useState, useEffect } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import CardContents from "../components/EventCard";
 import SmallCard from "../components/SmallCard";
+import { useLocation } from "react-router-dom";
+
 import axios from "axios";
 
 function EventDetailPage() {
+  const location = useLocation();
+
+  const data = location.state
+    ? location.state.eventData
+    : console.log("eventData null");
   // const [data, setData] = useState({});
   const [restaurant_res, setRestaruantData] = useState([]);
-  const data = {
-    _oid: "event object id1",
-    title: "건국 예디대 졸업전시회",
-    category: "미술",
-    district: "광진구",
-    date: "2023-12-01~2023-12-03",
-    place: "건국대학교 대운동장",
-    introduction: "건국대학교 대운동장에서 열리는 예디대 학생들의 졸업 전시회",
-    paidOrfree: "무료",
-    age: "누구나",
-    lat: "37.5408",
-    lon: "127.0793",
-    review: "100회",
-  };
+  // const data = {
+  //   _oid: "event object id1",
+  //   title: "건국 예디대 졸업전시회",
+  //   category: "미술",
+  //   district: "광진구",
+  //   date: "2023-12-01~2023-12-03",
+  //   place: "건국대학교 대운동장",
+  //   introduction: "건국대학교 대운동장에서 열리는 예디대 학생들의 졸업 전시회",
+  //   paidOrfree: "무료",
+  //   age: "누구나",
+  //   lat: "37.5408",
+  //   lon: "127.0793",
+  //   review: "100회",
+  // };
   const res_res = [
     {
       _id: "1",
@@ -32,7 +39,7 @@ function EventDetailPage() {
       lat: 37.5518,
       lon: 127.0736,
       info: "건대 맛의거리 내가 찜한 닭 입니다.",
-      views: ["음식이 맛있어요", "가족식사하기 좋네요."],
+      reviews: ["음식이 맛있어요", "가족식사하기 좋네요."],
       addr: "서울 광진구 아차산로33길 63",
       phone_num: "02-450-3234",
       menu: "매콤 찜닭, 로제 찜닭",
@@ -73,11 +80,12 @@ function EventDetailPage() {
   useEffect(() => {
     setAroundRestaurant();
   }, []);
+
   if (!data || !data.lat || !data.lon) {
     return <div>Loading...</div>;
   }
 
-  return data ? (
+  return (
     <div>
       <Card variant="outlined">
         <CardContents data={data} favoriteState={false}></CardContents>
@@ -97,20 +105,7 @@ function EventDetailPage() {
       >
         <MapMarker position={{ lat: data.lat, lng: data.lon }}></MapMarker>
       </Map>
-      <div className="restaurantInfo">
-        <Typography variant="h5" component="div">
-          근처맛집!
-        </Typography>
-        {res_res.map((data) => (
-          <Card className={styles.restaurantContainer} sx={{ mb: 2.5 }}>
-            {" "}
-            <SmallCard data={data}></SmallCard>
-          </Card>
-        ))}
-      </div>
     </div>
-  ) : (
-    <div>Loading...</div>
   );
 }
 
