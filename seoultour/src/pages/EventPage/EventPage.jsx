@@ -89,7 +89,7 @@ const EventPage = () => {
           검색
         </Button>
       </div>
-      <EventItems events={response} />
+      <EventItems events={events} />
     </>
   );
 };
