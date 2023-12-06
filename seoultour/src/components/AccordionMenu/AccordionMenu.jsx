@@ -4,10 +4,10 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import DistrictItems from '../DistrictItems/DistrictItems';
-import CategoryItems from '../CategoryItems/CategoryItems';
+import DistrictRadio from '../DistrictRadio/DistrictRadio';
+import CategoryCheckbox from '../CategoryCheckbox/CategoryCheckbox';
 
-export default function BasicAccordion({ isEvent }) {
+export default function AccordionMenu({ isEvent, selectedDistrict, selectedCategory, onDistrictChange, onCategoryChange }) {
   return (
     <div>
       <Accordion>
@@ -19,7 +19,7 @@ export default function BasicAccordion({ isEvent }) {
           <Typography>자치구</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <DistrictItems />
+          <DistrictRadio selectedDistrict={selectedDistrict} onDistrictChange={onDistrictChange} />
         </AccordionDetails>
       </Accordion>
       {isEvent? (
@@ -32,7 +32,7 @@ export default function BasicAccordion({ isEvent }) {
           <Typography>카테고리</Typography>
           </AccordionSummary>
           <AccordionDetails>
-          <CategoryItems />
+          <CategoryCheckbox selectedCategory={selectedCategory} onCategoryChange={onCategoryChange}/>
           </AccordionDetails>
         </Accordion>
       ) : null}

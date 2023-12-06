@@ -4,12 +4,19 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 
-const DistrictItems = () => {
+const DistrictItems = ({ selectedDistrict, onDistrictChange }) => {
+//   const [selectedDistrict, setSelectedDistrict] = useState('');
+
+  const handleDistrictChange = (event) => {
+    const districtName = event.target.value;
+    onDistrictChange(districtName)
+  }
   return (
     <>
       <RadioGroup
+        value={selectedDistrict}
+        onChange={handleDistrictChange}
         aria-labelledby="demo-radio-buttons-group-label"
-        defaultValue="female"
         name="radio-buttons-group"
       >
         <FormControlLabel value="종로구" control={<Radio />} sx={{ '& .MuiSvgIcon-root': { fontSize: 20 }}} label="종로구" />
