@@ -7,6 +7,11 @@ import Divider from '@mui/material/Divider';
 import { Typography } from '@mui/material';
 
 const EventItems = ({ events }) => {
+
+  if (!events || events.length === 0) {
+    return <></>;
+  }
+
   return (
     <>
       <nav aria-label="secondary mailbox folders">
