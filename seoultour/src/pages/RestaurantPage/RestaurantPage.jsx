@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 
-import Typography from "@mui/material/Typography";
 import Button from '@mui/material/Button';
 
 import AccordionMenu from "../../components/AccordionMenu/AccordionMenu"
@@ -49,7 +48,7 @@ const RestaurantPage = () => {
     return (
         <>
             <div style={{ margin: "15px 0 15px 0" }}>
-                <Typography variant="h5" component="div">맛집 목록</Typography>
+                <h2>맛집 목록</h2>
             </div>
 
             <AccordionMenu isEvent={false} selectedDistrict={selectedDistrict} selectedCategory={null} onDistrictChange={handleDistrictChange} onCategoryChange={null}/>

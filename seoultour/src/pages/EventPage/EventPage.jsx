@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 
-import Typography from "@mui/material/Typography";
 import Button from '@mui/material/Button';
 
 import AccordionMenu from "../../components/AccordionMenu/AccordionMenu"
-import DatePick from "../../components/\bDatePick/DatePick";
+import DatePick from "../../components/DatePick/DatePick";
 import EventItems from "../../components/EventItems/EventItems";
 
 const EventPage = () => {
@@ -68,7 +67,7 @@ const EventPage = () => {
     return (
         <>
             <div style={{ margin: "15px 0 15px 0" }}>
-                <Typography variant="h5" component="div">행사 목록</Typography>
+                <h2>행사 목록</h2>
             </div>
 
             <AccordionMenu isEvent={true} selectedDistrict={selectedDistrict} selectedCategory={selectedCategory} onDistrictChange={handleDistrictChange} onCategoryChange={handleCategoryChange}/>
