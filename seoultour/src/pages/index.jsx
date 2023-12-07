@@ -11,7 +11,7 @@ import SeoulCongestionPage from "./SeoulCongestionPage/SeoulCongestionPage";
 import FavoritePage from "./FavoritePage";
 import HeaderBar from "../components/HeaderBar";
 import BottomBar from "../components/BottomBar";
-
+import FavoriteEventDetailPage from "../pages/FavoriteEventDetailPage";
 const Router = () => {
   const router = createBrowserRouter([
     {
@@ -44,6 +44,16 @@ const Router = () => {
             <>
               <HeaderBar />
               <EventDetailPage />
+              <BottomBar />,
+            </>
+          ),
+        },
+        {
+          path: "/favorite-event-detail", // 나경 확인 필요
+          element: (
+            <>
+              <HeaderBar />
+              <FavoriteEventDetailPage />
               <BottomBar />,
             </>
           ),

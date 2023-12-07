@@ -97,9 +97,6 @@ function EventCard(data, favoriteState) {
           - 장소: {contents[0].paidOrfree}
         </Typography>
       </CardContent>
-      <Typography sx={{ mb: 1.5, ml: 1.5 }} color="primary">
-        조회수: {contents[0].review}
-      </Typography>
 
       {/* <CardActions>
         <Button size="small">Learn More</Button>

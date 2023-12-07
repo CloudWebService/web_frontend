@@ -5,10 +5,19 @@ import Typography from "@mui/material/Typography";
 import { useState, useEffect } from "react";
 import CardContents from "../components/EventCard";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 function FavoritePage() {
   const [data, setData] = useState([]);
   const [id, setId] = useState("");
   const BASE_URL = process.env.REACT_APP_BASE_URL;
+  const navigate = useNavigate();
+  const handleEventItem = (event) => {
+    console.log(event);
+    navigate("/favorite-event-detail", {
+      state: { eventData: event },
+    });
+  };
   const response = [
     {
       _oid: "1",
@@ -108,10 +117,15 @@ function FavoritePage() {
       <h2>관심있는 행사</h2>
       {data.map((cardData) => (
         <div className={styles.eventContainer}>
-          <Card variant="outlined" key={cardData._id}>
+          <Card
+            variant="outlined"
+            onClick={() => handleEventItem(cardData)}
+            key={cardData._id}
+          >
             <CardContents
               data={cardData}
               favoriteState={true}
+
               // onFavoriteChange={onFavoriteChange}
             ></CardContents>
           </Card>
