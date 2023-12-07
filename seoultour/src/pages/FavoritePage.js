@@ -60,19 +60,16 @@ function FavoritePage() {
     (FingerprintJS) => FingerprintJS.load()
   );
   const setBookmarkList = async () => {
-    console.log(BASE_URL + `/api/bookmarks?useId=${id}`);
     await axios
-      // .get(
-      //   "https://jfaacdyqeb.execute-api.us-east-2.amazonaws.com/api/bookmarks?userId=isoo"
-      // )
-      .get(BASE_URL + `/api/bookmarks?useId=${id}`)
+      .get(BASE_URL + `/api/bookmarks?userId=${id}`)
       .then((res) => {
-        console.log("즐겨찾기 리스트 get완료 :", res.data);
+        console.log("즐겨찾기 리스트 get완료 :", res);
         setData(res.data);
       })
       .catch((err) => {
         // console.log(BASE_URL + `/api/bookmarks?useId=${id}`);
         alert("즐겨찾기 리스트 불러오기 실패: ", err);
+        console.log(BASE_URL + `/api/bookmarks?userId=${id}`);
       });
     // setData(response);
   };
@@ -82,7 +79,21 @@ function FavoritePage() {
       .then((result) => {
         setId(result.visitorId);
         console.log("id?", id, result.visitorId);
-        setBookmarkList();
+      });
+    axios
+      .get(BASE_URL + `/api/bookmarks?userId=65701f9fc246da016fdbc189`)
+      .then((res) => {
+        console.log(
+          "getetete",
+          BASE_URL + `/api/bookmarks?userId=65701f9fc246da016fdbc189`
+        );
+        console.log("즐겨찾기 리스트 get완료 :", res);
+        setData(res.data);
+      })
+      .catch((err) => {
+        // console.log(BASE_URL + `/api/bookmarks?useId=${id}`);
+        alert("즐겨찾기 리스트 불러오기 실패: ", err);
+        console.log(BASE_URL + `/api/bookmarks?userId=${id}`);
       });
   }, []);
   const onFavoriteChange = () => {
@@ -97,11 +108,11 @@ function FavoritePage() {
       <h2>관심있는 행사</h2>
       {data.map((cardData) => (
         <div className={styles.eventContainer}>
-          <Card variant="outlined" key={cardData._oid}>
+          <Card variant="outlined" key={cardData._id}>
             <CardContents
               data={cardData}
               favoriteState={true}
-              onFavoriteChange={onFavoriteChange}
+              // onFavoriteChange={onFavoriteChange}
             ></CardContents>
           </Card>
         </div>

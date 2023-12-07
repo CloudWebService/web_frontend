@@ -64,10 +64,11 @@ function EventDetailPage() {
 
   const review = "100회";
   useEffect(() => {
+    console.log("eventdetail", data);
     // setReview();
   }, []);
 
-  if (!data || !data.lat || !data.lon) {
+  if (!data || !data.lat || !data.lng) {
     return <div>Loading...</div>;
   }
 

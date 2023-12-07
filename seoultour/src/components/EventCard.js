@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import axios from "axios";
 
-function EventCard(data, favoriteState, onFavoriteChange) {
+function EventCard(data, favoriteState) {
   const contents = Array.isArray(data) ? data : Object.values(data);
   const [id, setId] = useState("");
   const [isFavorite, setIsFavorite] = useState(false);
@@ -20,9 +20,10 @@ function EventCard(data, favoriteState, onFavoriteChange) {
   );
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   useEffect(() => {
-    console.log("favoriteState=", Boolean(favoriteState));
-    console.log("eventcard???", data);
-    setIsFavorite(Boolean(favoriteState));
+    console.log(isFavorite);
+    console.log("favoriteState=", Boolean(data.favoriteState));
+    console.log("eventcard???", data, data.favoriteState);
+    setIsFavorite(Boolean(data.favoriteState));
     fpPromise
       .then((fp) => fp.get())
       .then(
@@ -30,13 +31,13 @@ function EventCard(data, favoriteState, onFavoriteChange) {
           result //console.log(typeof result.visitorId)
         ) => setId(result.visitorId)
       );
-  }, []);
+  }, [favoriteState]);
   const handleFavorite = async () => {
     if (!isFavorite) {
       setIsFavorite(!isFavorite);
       await axios
         .post(
-          `${BASE_URL}/api/bookmarks?userId=${id}&eventId=${contents[0]._oid}`
+          `${BASE_URL}/api/bookmarks?userId=65701f9fc246da016fdbc189&eventId=${contents[0]._id}`
         )
         .then((res) => {
           console.log("즐겨찾기 등록 post완료 :", res);
@@ -45,14 +46,13 @@ function EventCard(data, favoriteState, onFavoriteChange) {
           alert("즐겨찾기 등록 post 실패: ", err);
         });
     } else {
-      onFavoriteChange && onFavoriteChange();
+      // onFavoriteChange && onFavoriteChange();
       setIsFavorite(!isFavorite);
-      console.log(
-        `${BASE_URL}/api/bookmarks?userId=${id}&eventId=${contents[0]._oid}`
-      );
+      console.log(`${id}`, `${contents[0]._id}`);
+
       await axios
         .delete(
-          `${BASE_URL}/api/bookmarks?userId=${id}&eventId=${contents[0]._oid}`
+          `${BASE_URL}/api/bookmarks?userId=65701f9fc246da016fdbc189&eventId=${contents[0]._id}`
         )
         .then((res) => {
           console.log("즐겨찾기 delete 완료 :", res);
