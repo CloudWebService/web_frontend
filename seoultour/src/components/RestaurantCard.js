@@ -19,7 +19,7 @@ function RestaurantCard(data) {
       <CardContent>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <Typography sx={{ display: "inline" }} variant="h5" component="div">
-            {content[0].name}
+            {content[0].상호명}
           </Typography>
         </div>
         {content[0].대표메뉴 ? (

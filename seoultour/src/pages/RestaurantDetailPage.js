@@ -15,18 +15,18 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 function RestaurantDetailPage() {
-  const [restaurantData, setRestaurantData] = useState();
   const [reviewList, setReviewList] = useState([]);
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   const location = useLocation();
 
   const [id, setId] = useState("");
   const data = location.state
-    ? location.state.eventData
+    ? location.state.restaurantData
     : console.log("eventData null");
   const fpPromise = import("https://openfpcdn.io/fingerprintjs/v4").then(
     (FingerprintJS) => FingerprintJS.load()
   );
+  const [comment, setComment] = useState();
   const restaurant_res = {
     _id: "mongodb 고유 object_id",
     name: "내가 찜한 닭",
@@ -81,7 +81,20 @@ function RestaurantDetailPage() {
         alert("리뷰 get 실패: ", err);
       });
   };
-
+  const postReview = async (comment) => {
+    console.log("comment?", comment);
+    axios
+      .post(
+        BASE_URL +
+          `/api/restaurant/reviews?userId=${id}&restaurantId=${data._id}&comment=${comment}`
+      )
+      .then((res) => {
+        console.log("post완료");
+        setReview();
+        setComment("");
+      });
+    setReview();
+  };
   useEffect(() => {
     // setRestaurantData(restaurant_res);
     setReview();
@@ -93,14 +106,14 @@ function RestaurantDetailPage() {
         ) => setId(result.visitorId)
       );
   }, []);
-  if (!restaurantData) {
+  if (!data) {
     return <div>Loading...</div>;
   }
 
-  return restaurantData && reviewList ? (
+  return data && reviewList ? (
     <div>
       <Card variant="outlined">
-        <CardContents data={restaurantData}></CardContents>
+        <CardContents data={data}></CardContents>
       </Card>
       <Typography variant="h5" component="div">
         위치
@@ -108,11 +121,9 @@ function RestaurantDetailPage() {
 
       <Map
         className={styles.mapContainer}
-        center={{ lat: restaurantData.위도, lng: restaurantData.경도 }}
+        center={{ lat: data.위도, lng: data.경도 }}
       >
-        <MapMarker
-          position={{ lat: restaurantData.위도, lng: restaurantData.경도 }}
-        ></MapMarker>
+        <MapMarker position={{ lat: data.위도, lng: data.경도 }}></MapMarker>
       </Map>
       {/* <Typography variant="h5" component="div">
         리뷰
@@ -130,8 +141,13 @@ function RestaurantDetailPage() {
             ),
           }}
           variant="standard"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
         />
-        <SendIcon sx={{ position: "absolute", bottom: "10px", right: "5px" }} />
+        <SendIcon
+          onClick={() => postReview(comment)}
+          sx={{ position: "absolute", bottom: "10px", right: "5px" }}
+        />
       </Box>
       <div>
         {reviewList.map((review, idx) => (
